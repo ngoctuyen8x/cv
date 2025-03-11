@@ -108,12 +108,15 @@
         }
 
         .skills li {
-            opacity: 1;
+            opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
         }
 
-        
+        .skills li.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
 		ul.sub-list li {
 			list-style: circle;
@@ -260,5 +263,25 @@
         </div>
     </div>
 
-  </body>
+   <script>
+        // Hiệu ứng fade-in và scale khi scroll
+        const skillItems = document.querySelectorAll('.skills li');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                //if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 50); // Delay từng item 150ms
+                //}
+            });
+        }, {
+            threshold: 1 // Kích hoạt khi 10% phần tử xuất hiện trong viewport
+        });
+
+        skillItems.forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
 </html>
